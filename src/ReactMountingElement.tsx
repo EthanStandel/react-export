@@ -2,8 +2,8 @@ import { createRoot } from "react-dom/client";
 import { ReactElement } from "react";
 
 export abstract class ReactMountingElement extends HTMLElement {
-  abstract component: (props: any) => ReactElement;
-  #root = createRoot(this);
+  abstract readonly component: (props: any) => ReactElement;
+  readonly #root = createRoot(this);
 
   constructor() {
     super();
@@ -11,23 +11,23 @@ export abstract class ReactMountingElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this.mount();
+    this.#mount();
   }
 
   disconnectedCallback() {
-    this.unmount();
+    this.#unmount();
   }
 
   attributeChangedCallback() {
-    this.update();
+    this.#update();
   }
 
-  update() {
-    this.unmount();
-    this.mount();
+  #update() {
+    this.#unmount();
+    this.#mount();
   }
 
-  mount() {
+  #mount() {
     this.attributes;
     const Component = this.component;
     this.attributes.getNamedItem;
@@ -36,7 +36,7 @@ export abstract class ReactMountingElement extends HTMLElement {
     );
     this.#root.render(<Component {...props} />);
   }
-  unmount() {
+  #unmount() {
     this.#root.unmount();
   }
 }
