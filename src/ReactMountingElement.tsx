@@ -1,9 +1,9 @@
-import { Root, createRoot } from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import { ReactElement } from "react";
 
 export abstract class ReactMountingElement extends HTMLElement {
   abstract component: (props: any) => ReactElement;
-  #root!: Root;
+  #root = createRoot(this);
 
   constructor() {
     super();
@@ -11,7 +11,6 @@ export abstract class ReactMountingElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this.#root = createRoot(this);
     this.mount();
   }
 
@@ -31,9 +30,9 @@ export abstract class ReactMountingElement extends HTMLElement {
   mount() {
     this.attributes;
     const Component = this.component;
+    this.attributes.getNamedItem;
     const props = JSON.parse(
-      [...this.attributes].find((attribute) => attribute.name === "props")
-        ?.value ?? "{}"
+      this.attributes.getNamedItem("props")?.value ?? "{}"
     );
     this.#root.render(<Component {...props} />);
   }
