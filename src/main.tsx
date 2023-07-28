@@ -1,10 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import { Counter } from "./Counter";
+import kebabCase from "lodash/kebabCase";
+import { ReactMountingElement } from "./ReactMountingElement";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
+// Add all react components here!
+const reactElementsMap = { Counter };
+
+Object.entries(reactElementsMap).map(([key, component]) => {
+  window.customElements.define(
+    kebabCase(`react-${key}`),
+    class extends ReactMountingElement {
+      component = component;
+    }
+  );
+});

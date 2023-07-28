@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Use case for exported React component</title>
+  </head>
+  <body>
+    <p>
+      This file exists as a better test of being able to drop the script in
+      arbitrarily. Vite's normal index.html is built at compile time, whereas
+      this HTML file is entirely static and better represents an external site
+      including these scripts.
+    </p>
+    <div>
+      <react-counter props='{"initial":5}'></react-counter>
+      <react-counter></react-counter>
+      <react-counter></react-counter>
+    </div>
+    <script src="/index.js"></script>
+  </body>
+</html>
