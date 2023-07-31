@@ -8,7 +8,7 @@ const reactElementsMap = { Counter };
 
 Object.entries(reactElementsMap).map(([key, component]) => {
   window.customElements.define(
-    kebabCase(`react-${key}`),
+    `react-${kebabCase(key)}`,
     class extends ReactMountingElement<ComponentProps<typeof component>> {
       component = component;
     }
