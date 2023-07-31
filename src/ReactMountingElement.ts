@@ -1,8 +1,10 @@
 import { createRoot } from "react-dom/client";
 import { createElement, type ReactElement } from "react";
 
-export abstract class ReactMountingElement extends HTMLElement {
-  abstract readonly component: (props: any) => ReactElement;
+export abstract class ReactMountingElement<
+  Props extends {}
+> extends HTMLElement {
+  abstract readonly component: (props: Props) => ReactElement;
   readonly #root = createRoot(this);
 
   connectedCallback() {
@@ -24,12 +26,17 @@ export abstract class ReactMountingElement extends HTMLElement {
   }
 
   #mount() {
-    this.attributes;
-    const Component = this.component;
     const props = JSON.parse(
       this.attributes.getNamedItem("props")?.value ?? "{}"
     );
-    this.#root.render(createElement(this.component, props));
+    // warning, this is inherently un-type safe unless we included
+    // a validation step after the JSON.parse call with zod/yup/arktype
+    // but that means that all of our prop types would need a runtime
+    // validator
+    //
+    // this could be achieved by adding the validator as another
+    // abstract property to this class if needed
+    this.#root.render(createElement(this.component, props as Props));
   }
   #unmount() {
     this.#root.unmount();
