@@ -26,9 +26,10 @@ export abstract class ReactMountingElement<
   }
 
   #mount() {
-    const props = JSON.parse(
-      this.attributes.getNamedItem("props")?.value ?? "{}"
-    );
+    const props = {
+      ...JSON.parse(this.attributes.getNamedItem("props")?.value ?? "{}"),
+      children: createElement(Children, { innerHTML: this.innerHTML }),
+    };
     // warning, this is inherently un-type safe unless we included
     // a validation step after the JSON.parse call with zod/yup/arktype
     // but that means that all of our prop types would need a runtime
@@ -42,3 +43,9 @@ export abstract class ReactMountingElement<
     this.#root.unmount();
   }
 }
+
+const Children = ({ innerHTML }: { innerHTML: string }) =>
+  createElement("div", {
+    dangerouslySetInnerHTML: { __html: innerHTML },
+    style: { display: "contents" },
+  });
