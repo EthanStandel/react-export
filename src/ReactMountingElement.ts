@@ -6,6 +6,7 @@ export abstract class ReactMountingElement<
 > extends HTMLElement {
   abstract readonly component: (props: Props) => ReactElement;
   readonly #root = createRoot(this);
+  readonly #children = createElement(Children, { innerHTML: this.innerHTML });
 
   connectedCallback() {
     this.style.display = "contents";
@@ -28,7 +29,7 @@ export abstract class ReactMountingElement<
   #mount() {
     const props = {
       ...JSON.parse(this.attributes.getNamedItem("props")?.value ?? "{}"),
-      children: createElement(Children, { innerHTML: this.innerHTML }),
+      children: this.#children,
     };
     // warning, this is inherently un-type safe unless we included
     // a validation step after the JSON.parse call with zod/yup/arktype
