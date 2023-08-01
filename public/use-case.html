@@ -11,7 +11,11 @@
       This file exists as a better test of being able to drop the script in
       arbitrarily. Vite's normal index.html is built at compile time, whereas
       this HTML file is entirely static and better represents an external site
-      including these scripts.
+      including these scripts. Notably, this file
+      <strong>will not work</strong> when running
+      <code>npm run dev</code> because the ESBuild output does not give a single
+      index.js for consumption by static files! To see this file work, please
+      view it by running <code>npm run serve</code>
     </p>
     <div>
       <react-counter props='{"initial":5}'></react-counter>
