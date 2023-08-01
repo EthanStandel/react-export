@@ -11,10 +11,8 @@ export const Counter = ({
 
   return (
     <button onClick={() => setCount((count) => count + 1)}>
-      <span>
-        count is {count}
-        {children}
-      </span>
+      count is {count}
+      {children}
     </button>
   );
 };

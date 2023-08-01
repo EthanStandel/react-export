@@ -45,7 +45,9 @@ export abstract class ReactMountingElement<
 }
 
 const Children = ({ innerHTML }: { innerHTML: string }) =>
-  createElement("div", {
-    dangerouslySetInnerHTML: { __html: innerHTML },
-    style: { display: "contents" },
-  });
+  innerHTML
+    ? createElement("div", {
+        dangerouslySetInnerHTML: { __html: innerHTML },
+        style: { display: "contents" },
+      })
+    : null;
